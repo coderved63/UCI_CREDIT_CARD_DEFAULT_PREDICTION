@@ -1,0 +1,5 @@
+[2025-10-04 07:29:51,836] 97 werkzeug - INFO - 127.0.0.1 - - [04/Oct/2025 07:29:51] "POST /predictdata HTTP/1.1" 200 -
+[2025-10-04 07:31:45,139] 97 werkzeug - INFO - 127.0.0.1 - - [04/Oct/2025 07:31:45] "POST /predictdata HTTP/1.1" 200 -
+[2025-10-04 07:32:34,271] 97 werkzeug - INFO - 127.0.0.1 - - [04/Oct/2025 07:32:34] "GET /predictdata HTTP/1.1" 200 -
+[2025-10-04 07:36:15,044] 97 werkzeug - INFO - 127.0.0.1 - - [04/Oct/2025 07:36:15] "GET / HTTP/1.1" 200 -
+[2025-10-04 07:36:16,146] 97 werkzeug - INFO - 127.0.0.1 - - [04/Oct/2025 07:36:16] "GET /predictdata HTTP/1.1" 200 -

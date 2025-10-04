@@ -1,0 +1,37 @@
+[2025-10-04 09:26:29,713] 28 root - INFO - Entered the data ingestion method or component
+[2025-10-04 09:26:29,773] 31 root - INFO - Read the dataset as dataframe
+[2025-10-04 09:26:30,072] 37 root - INFO - Train test split initiated
+[2025-10-04 09:26:30,373] 44 root - INFO - Ingestion of the data is completed
+[2025-10-04 09:26:30,494] 179 root - INFO - Read train and test data completed
+[2025-10-04 09:26:30,494] 180 root - INFO - Train data shape: (24000, 25)
+[2025-10-04 09:26:30,494] 181 root - INFO - Test data shape: (6000, 25)
+[2025-10-04 09:26:30,498] 200 root - INFO - Dropped columns: ['ID']
+[2025-10-04 09:26:30,499] 202 root - INFO - Obtaining preprocessing object
+[2025-10-04 09:26:30,499] 147 root - INFO - Original numerical columns: ['LIMIT_BAL', 'AGE', 'BILL_AMT1', 'BILL_AMT2', 'BILL_AMT3', 'BILL_AMT4', 'BILL_AMT5', 'BILL_AMT6', 'PAY_AMT1', 'PAY_AMT2', 'PAY_AMT3', 'PAY_AMT4', 'PAY_AMT5', 'PAY_AMT6', 'PAY_0', 'PAY_2', 'PAY_3', 'PAY_4', 'PAY_5', 'PAY_6']
+[2025-10-04 09:26:30,499] 148 root - INFO - Original categorical columns: ['SEX', 'EDUCATION', 'MARRIAGE']
+[2025-10-04 09:26:30,499] 149 root - INFO - Engineered numerical columns: ['credit_utilization', 'avg_payment_status', 'max_payment_delay', 'avg_bill_amount', 'bill_amount_trend', 'avg_payment_amount', 'payment_amount_trend', 'months_with_delays', 'payment_reliability_score', 'payment_ratio_1', 'payment_ratio_2', 'payment_ratio_3', 'payment_ratio_4', 'payment_ratio_5', 'payment_ratio_6']
+[2025-10-04 09:26:30,499] 150 root - INFO - Engineered categorical columns: ['high_utilization', 'ever_paid_early']
+[2025-10-04 09:26:30,501] 212 root - INFO - Input features shape - Train: (24000, 23), Test: (6000, 23)
+[2025-10-04 09:26:30,502] 213 root - INFO - Target distribution in train set:
+default.payment.next.month
+0    18677
+1     5323
+Name: count, dtype: int64
+[2025-10-04 09:26:30,502] 215 root - INFO - Applying preprocessing object on training dataframe and testing dataframe.
+[2025-10-04 09:26:30,681] 221 root - INFO - Transformed features shape - Train: (24000, 43), Test: (6000, 43)
+[2025-10-04 09:26:30,685] 227 root - INFO - Saving preprocessing object
+[2025-10-04 09:26:30,686] 233 root - INFO - Data transformation completed successfully
+[2025-10-04 09:26:30,687] 36 root - INFO - Split training and test input data
+[2025-10-04 09:27:23,688] 110 root - INFO - Best model found on both training and testing data set
+[2025-10-04 09:27:23,708] 124 root - INFO - Best Model: Gradient Boosting
+[2025-10-04 09:27:23,708] 125 root - INFO - Best Model Accuracy: 0.8208333333333333
+[2025-10-04 09:27:23,714] 126 root - INFO - Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.84      0.95      0.89      4687
+         1.0       0.67      0.35      0.46      1313
+
+    accuracy                           0.82      6000
+   macro avg       0.76      0.65      0.68      6000
+weighted avg       0.80      0.82      0.80      6000
+

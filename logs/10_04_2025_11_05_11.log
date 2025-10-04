@@ -1,0 +1,6 @@
+[2025-10-04 11:05:12,148] 97 werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+[2025-10-04 11:05:12,148] 97 werkzeug - INFO - [33mPress CTRL+C to quit[0m
+[2025-10-04 11:05:12,150] 97 werkzeug - INFO -  * Restarting with stat

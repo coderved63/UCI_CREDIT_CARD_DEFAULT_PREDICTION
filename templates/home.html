@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Card Default Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #444;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-group {
+            flex: 1;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 6px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .result.positive {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .result.negative {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .back-btn {
+            display: inline-block;
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-btn:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">← Back to Home</a>
+        <h1>🏦 Credit Card Default Prediction</h1>
+
+        <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+            <!-- Personal Information -->
+            <div class="section">
+                <h3>Personal Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="LIMIT_BAL">Credit Limit (NT Dollar)</label>
+                        <input type="number" name="LIMIT_BAL" id="LIMIT_BAL" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AGE">Age</label>
+                        <input type="number" name="AGE" id="AGE" min="18" max="100" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="SEX">Gender</label>
+                        <select name="SEX" id="SEX" required>
+                            <option value="">Select Gender</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="EDUCATION">Education</label>
+                        <select name="EDUCATION" id="EDUCATION" required>
+                            <option value="">Select Education</option>
+                            <option value="1">Graduate School</option>
+                            <option value="2">University</option>
+                            <option value="3">High School</option>
+                            <option value="4">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="MARRIAGE">Marital Status</label>
+                        <select name="MARRIAGE" id="MARRIAGE" required>
+                            <option value="">Select Status</option>
+                            <option value="1">Married</option>
+                            <option value="2">Single</option>
+                            <option value="3">Others</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Status History -->
+            <div class="section">
+                <h3>Payment Status History</h3>
+                <p style="font-size: 12px; color: #666;">-1 = Paid before due | 0 = Paid on time | 1+ = Delay months</p>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="PAY_0">Sep 2005 Payment</label>
+                        <select name="PAY_0" id="PAY_0" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="-2">No consumption</option>
+                            <option value="-1">Paid in full</option>
+                            <option value="0">Use of revolving credit</option>
+                            <option value="1">Payment delay 1 month</option>
+                            <option value="2">Payment delay 2 months</option>
+                            <option value="3">Payment delay 3 months</option>
+                            <option value="4">Payment delay 4 months</option>
+                            <option value="5">Payment delay 5 months</option>
+                            <option value="6">Payment delay 6 months</option>
+                            <option value="7">Payment delay 7 months</option>
+                            <option value="8">Payment delay 8+ months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_2">Aug 2005 Payment</label>
+                        <select name="PAY_2" id="PAY_2" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="-2">No consumption</option>
+                            <option value="-1">Paid in full</option>
+                            <option value="0">Use of revolving credit</option>
+                            <option value="1">Payment delay 1 month</option>
+                            <option value="2">Payment delay 2 months</option>
+                            <option value="3">Payment delay 3 months</option>
+                            <option value="4">Payment delay 4 months</option>
+                            <option value="5">Payment delay 5 months</option>
+                            <option value="6">Payment delay 6 months</option>
+                            <option value="7">Payment delay 7 months</option>
+                            <option value="8">Payment delay 8+ months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_3">Jul 2005 Payment</label>
+                        <select name="PAY_3" id="PAY_3" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="-2">No consumption</option>
+                            <option value="-1">Paid in full</option>
+                            <option value="0">Use of revolving credit</option>
+                            <option value="1">Payment delay 1 month</option>
+                            <option value="2">Payment delay 2 months</option>
+                            <option value="3">Payment delay 3 months</option>
+                            <option value="4">Payment delay 4 months</option>
+                            <option value="5">Payment delay 5 months</option>
+                            <option value="6">Payment delay 6 months</option>
+                            <option value="7">Payment delay 7 months</option>
+                            <option value="8">Payment delay 8+ months</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="PAY_4">Jun 2005 Payment</label>
+                        <select name="PAY_4" id="PAY_4" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="-2">No consumption</option>
+                            <option value="-1">Paid in full</option>
+                            <option value="0">Use of revolving credit</option>
+                            <option value="1">Payment delay 1 month</option>
+                            <option value="2">Payment delay 2 months</option>
+                            <option value="3">Payment delay 3 months</option>
+                            <option value="4">Payment delay 4 months</option>
+                            <option value="5">Payment delay 5 months</option>
+                            <option value="6">Payment delay 6 months</option>
+                            <option value="7">Payment delay 7 months</option>
+                            <option value="8">Payment delay 8+ months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_5">May 2005 Payment</label>
+                        <select name="PAY_5" id="PAY_5" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="-2">No consumption</option>
+                            <option value="-1">Paid in full</option>
+                            <option value="0">Use of revolving credit</option>
+                            <option value="1">Payment delay 1 month</option>
+                            <option value="2">Payment delay 2 months</option>
+                            <option value="3">Payment delay 3 months</option>
+                            <option value="4">Payment delay 4 months</option>
+                            <option value="5">Payment delay 5 months</option>
+                            <option value="6">Payment delay 6 months</option>
+                            <option value="7">Payment delay 7 months</option>
+                            <option value="8">Payment delay 8+ months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_6">Apr 2005 Payment</label>
+                        <select name="PAY_6" id="PAY_6" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="-2">No consumption</option>
+                            <option value="-1">Paid in full</option>
+                            <option value="0">Use of revolving credit</option>
+                            <option value="1">Payment delay 1 month</option>
+                            <option value="2">Payment delay 2 months</option>
+                            <option value="3">Payment delay 3 months</option>
+                            <option value="4">Payment delay 4 months</option>
+                            <option value="5">Payment delay 5 months</option>
+                            <option value="6">Payment delay 6 months</option>
+                            <option value="7">Payment delay 7 months</option>
+                            <option value="8">Payment delay 8+ months</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bill Amounts -->
+            <div class="section">
+                <h3>Bill Statement Amounts</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="BILL_AMT1">Sep 2005 Bill</label>
+                        <input type="number" name="BILL_AMT1" id="BILL_AMT1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="BILL_AMT2">Aug 2005 Bill</label>
+                        <input type="number" name="BILL_AMT2" id="BILL_AMT2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="BILL_AMT3">Jul 2005 Bill</label>
+                        <input type="number" name="BILL_AMT3" id="BILL_AMT3" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="BILL_AMT4">Jun 2005 Bill</label>
+                        <input type="number" name="BILL_AMT4" id="BILL_AMT4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="BILL_AMT5">May 2005 Bill</label>
+                        <input type="number" name="BILL_AMT5" id="BILL_AMT5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="BILL_AMT6">Apr 2005 Bill</label>
+                        <input type="number" name="BILL_AMT6" id="BILL_AMT6" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Amounts -->
+            <div class="section">
+                <h3>Previous Payment Amounts</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="PAY_AMT1">Sep 2005 Payment</label>
+                        <input type="number" name="PAY_AMT1" id="PAY_AMT1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_AMT2">Aug 2005 Payment</label>
+                        <input type="number" name="PAY_AMT2" id="PAY_AMT2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_AMT3">Jul 2005 Payment</label>
+                        <input type="number" name="PAY_AMT3" id="PAY_AMT3" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="PAY_AMT4">Jun 2005 Payment</label>
+                        <input type="number" name="PAY_AMT4" id="PAY_AMT4" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_AMT5">May 2005 Payment</label>
+                        <input type="number" name="PAY_AMT5" id="PAY_AMT5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PAY_AMT6">Apr 2005 Payment</label>
+                        <input type="number" name="PAY_AMT6" id="PAY_AMT6" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="🔍 Predict Default Risk">
+            </div>
+        </form>
+
+        {% if results %}
+        <div class="result {{ 'negative' if 'Will Default' in results else 'positive' }}">
+            <h2>Prediction Result: {{ results }}</h2>
+            {% if 'Will Default' in results %}
+                <p>⚠️ High risk of credit card default. Consider reviewing credit terms.</p>
+            {% else %}
+                <p>✅ Low risk of credit card default. Good payment behavior expected.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
