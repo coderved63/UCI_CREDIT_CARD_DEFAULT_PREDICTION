@@ -54,10 +54,10 @@ Created **17 engineered features** from original 24 features:
 ### **Model Performance**
 | Algorithm | ROC-AUC Score | Accuracy |
 |-----------|---------------|----------|
-| **XGBoost (Best)** | **0.814** | **82.3%** |
-| CatBoost | 0.809 | 81.9% |
-| Random Forest | 0.806 | 81.6% |
-| Gradient Boosting | 0.803 | 81.4% |
+| **CatBoost (Best)** | **0.78** | **82.3%** |
+| XGBoost | 0.766 | 81.9% |
+| Random Forest | 0.778 | 81.6% |
+| Gradient Boosting | 0.780 | 81.4% |
 
 ## 📁 Project Structure
 
